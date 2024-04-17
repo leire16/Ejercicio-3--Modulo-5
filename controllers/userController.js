@@ -1,9 +1,6 @@
 const User = require('../models/User');
-const { v4: uuidv4 } = require('uuid');
 
 const jwt = require('jsonwebtoken'); // Requiere instalar el paquete 'jsonwebtoken'
-
-const { sessions } = require('../middlewares/secure.middleware');
 
 module.exports.createUser =(req, res) => {
     User.create(req.body)
@@ -40,7 +37,7 @@ module.exports.loginUser = (req, res) => {
             }
 
             // Generar un token JWT
-            const token = jwt.sign({ userId: user._id }, 'secretKey'); // Reemplaza 'secretKey' con tu clave secreta
+            const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
 
             res.status(200).json({ token });
         })

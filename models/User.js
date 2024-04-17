@@ -36,10 +36,9 @@ const schema = new mongoose.Schema(
   {
     timestamps: true,
     toJSON: {
-      virtuals: true,
       transform: (doc, ret) => {
-        delete ret.password;
         ret.id = ret._id;
+        delete ret.password;
         delete ret._id;
         delete ret.__v;
         return ret;
